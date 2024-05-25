@@ -16,22 +16,47 @@ def translateEnglishToFrench(text):
     return translated
 
 while True:
-    choice = input("Voulez-vous traduire du français vers l'anglais ou de l'anglais vers le français? (fr/en): ")
-    if choice == "fr":
-        french_to_english_model_name = "Helsinki-NLP/opus-mt-fr-en"
-        french_to_english_tokenizer = AutoTokenizer.from_pretrained(french_to_english_model_name)
-        french_to_english_model = AutoModelForSeq2SeqLM.from_pretrained(french_to_english_model_name)
-        print("French to English Model loaded successfully!")
+    print("+---------------------------------------------------+");
+    print("|                    Sen Translator                 |");
+    print("+---------------------------------------------------+");
+    print("|                  1. Anglais -> Francais           |");
+    print("|                  2. Francais -> Anglais           |");
+    print("|                  3. Quitter le programme          |");
+    print("+---------------------------------------------------+");
+    
+    try :
+        choice = input("Votre choix: ");
+    except: 
+        print("Erreur lors de la saisie du choix! Veuillez réessayer.");
+    
+    match choice:
+        case "1":
+            print("Vous avez choisi la traduction de l'anglais 🏴󠁧󠁢󠁥󠁮󠁧󠁿 vers le français 🇫🇷");
+            
+            english_to_french_model_name = "Helsinki-NLP/opus-mt-en-fr"
+            english_to_french_tokenizer = AutoTokenizer.from_pretrained(english_to_french_model_name)
+            english_to_french_model = AutoModelForSeq2SeqLM.from_pretrained(english_to_french_model_name)
+            
+            print("English to French Model loaded successfully 🎊🎉")
+            
+            english_text = input("Please provide the text you want to translate to french: ")
+            translateEnglishToFrench(english_text)
         
-        french_text = input("Veuillez saisir le texte que vous souhaitez traduire en anglais: ")
-        translateFrenchToEnglish(french_text)
-    elif choice == "en":
-        english_to_french_model_name = "Helsinki-NLP/opus-mt-en-fr"
-        english_to_french_tokenizer = AutoTokenizer.from_pretrained(english_to_french_model_name)
-        english_to_french_model = AutoModelForSeq2SeqLM.from_pretrained(english_to_french_model_name)
-        print("English to French Model loaded successfully!")
+        case '2':
+            print("Vous avez choisi la Traduction du français 🇫🇷 vers l'anglais 🏴󠁧󠁢󠁥󠁮󠁧󠁿");
+            
+            french_to_english_model_name = "Helsinki-NLP/opus-mt-fr-en"
+            french_to_english_tokenizer = AutoTokenizer.from_pretrained(french_to_english_model_name)
+            french_to_english_model = AutoModelForSeq2SeqLM.from_pretrained(french_to_english_model_name)
+            
+            print("French to English Model loaded successfully 🎊🎉")
+            
+            french_text = input("Veuillez saisir le texte que vous souhaitez traduire en anglais: ")
+            translateFrenchToEnglish(french_text)
         
-        english_text = input("Please provide the text you want to translate to french: ")
-        translateEnglishToFrench(english_text)
-    else:
-        print("Choix invalide!")
+        case "3":
+            print("Bye 👋")
+            break;
+        
+        case _:
+            print("Veuillez saisir un choix valide!")
