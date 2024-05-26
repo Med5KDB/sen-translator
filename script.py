@@ -5,23 +5,24 @@ import random
 
 
 def translateFrenchToEnglish(text):
-    batch = french_to_english_tokenizer([text], return_tensors="pt")
-    generated_ids = french_to_english_model.generate(**batch)
-    translated = french_to_english_tokenizer.batch_decode(generated_ids, skip_special_tokens=True)[0]
+    batch = fr2en_tokenizer([text], return_tensors="pt")
+    generated_ids = fr2en_model.generate(**batch)
+    translated = fr2en_tokenizer.batch_decode(generated_ids, skip_special_tokens=True)[0]
     print("Traduction anglaise du texte: ", translated)
     return translated
 
 def translateEnglishToFrench(text):
-    batch = english_to_french_tokenizer([text], return_tensors="pt")
-    generated_ids = english_to_french_model.generate(**batch)
-    translated = english_to_french_tokenizer.batch_decode(generated_ids, skip_special_tokens=True)[0]
+    batch = en2fr_tokenizer([text], return_tensors="pt")
+    generated_ids = en2fr_model.generate(**batch)
+    translated = en2fr_tokenizer.batch_decode(generated_ids, skip_special_tokens=True)[0]
     print("Traduction française du texte: ", translated)
     return translated
 
+ascii_banner = pyfiglet.figlet_format("Sen Translator")
+coloredText = Fore.MAGENTA + ascii_banner
+print(coloredText)
+
 while True:
-    ascii_banner = pyfiglet.figlet_format("Sen Translator")
-    coloredText = Fore.MAGENTA + ascii_banner
-    print(coloredText)
 
     print("+---------------------------------------------------+")
     print("|          Sen Translator                           |")
@@ -40,9 +41,9 @@ while True:
         case "1":
             print("Vous avez choisi la traduction de l'anglais 🏴󠁧󠁢󠁥󠁮󠁧󠁿 vers le français 🇫🇷");
 
-            english_to_french_model_name = "Helsinki-NLP/opus-mt-en-fr"
-            english_to_french_tokenizer = AutoTokenizer.from_pretrained(english_to_french_model_name)
-            english_to_french_model = AutoModelForSeq2SeqLM.from_pretrained(english_to_french_model_name)
+            en2fr_model_name = "Helsinki-NLP/opus-mt-en-fr"
+            en2fr_tokenizer = AutoTokenizer.from_pretrained(en2fr_model_name)
+            en2fr_model = AutoModelForSeq2SeqLM.from_pretrained(en2fr_model_name)
 
             print("English to French Model loaded successfully 🎊🎉")
 
@@ -52,9 +53,9 @@ while True:
         case '2':
             print("Vous avez choisi la Traduction du français 🇫🇷 vers l'anglais 🏴󠁧󠁢󠁥󠁮󠁧󠁿");
 
-            french_to_english_model_name = "Helsinki-NLP/opus-mt-fr-en"
-            french_to_english_tokenizer = AutoTokenizer.from_pretrained(french_to_english_model_name)
-            french_to_english_model = AutoModelForSeq2SeqLM.from_pretrained(french_to_english_model_name)
+            fr2en_model_name = "Helsinki-NLP/opus-mt-fr-en"
+            fr2en_tokenizer = AutoTokenizer.from_pretrained(fr2en_model_name)
+            fr2en_model = AutoModelForSeq2SeqLM.from_pretrained(fr2en_model_name)
 
             print("French to English Model loaded successfully 🎊🎉")
 
